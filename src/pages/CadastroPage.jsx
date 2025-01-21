@@ -1,16 +1,37 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "./../styles/Auth.css";
+import axios from "axios";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Chamar o back-end (axios ou fetch)
-    toast.success("Cadastro realizado com sucesso!");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/usuarios",
+        {
+          name: username,
+          email,
+          senha: password,
+        }
+      );
+
+      if (response.data.sucess) {
+        toast.sucess("Cadastro realizaso com sucesso!");
+        setUsername("");
+        setEmail("");
+        setPassword("");
+      } else {
+        toast.error(response.data.mensagem || "Erro ao cadastrar usuário");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

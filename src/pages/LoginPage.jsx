@@ -1,16 +1,30 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "./../styles/Auth.css";
+import axios from "axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //Chamar a API back-end
-    toast.success("Login realizado com sucesso");
+    try {
+      const response = await axios.post("http://localhost:3000/api/usuarios/login", {
+        email,
+        password,
+      });
+
+      if (response.data.success) {
+        toast.success("Login realizado com sucesso!");
+        console.log(response.data);
+      } else {
+        toast.error("Erro ao realizar login. veifique suas credenciais.");
+      }
+    } catch (error) {
+      console.error("Erro na requisição", error);
+    }
   };
 
   return (
