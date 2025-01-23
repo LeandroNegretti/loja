@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import "./../styles/Auth.css";
 import axios from "axios";
 
+
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,7 +12,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.get("http://localhost:3000/api/usuarios", {
+      const response = await axios.post("http://localhost:3000/api/usuarios/login", {
         email,
         password,
       });
