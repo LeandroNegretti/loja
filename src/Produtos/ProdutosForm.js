@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
 import { toast } from "react-toastify";
 
-const ProdutoForm = () => {
+const ProdutosForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [produto, setProduto] = useState({
@@ -96,4 +96,4 @@ const ProdutoForm = () => {
   );
 };
 
-export default ProdutoForm;
+export default ProdutosForm;
